@@ -1,2 +1,5 @@
-#exclude password file
-wateringSystem/configuration.h
+#password file
+/wateringSystem/configuration.h
+
+#node modules
+/cloud functions/functions/node_modules/*
