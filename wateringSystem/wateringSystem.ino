@@ -25,10 +25,6 @@ void setup() {
   ESP.deepSleep(3600000000);
 }
 
-void loop() {
-
-}
-
 void uploadValue(){
   int sensorValue = analogRead(A0);
   float voltage = sensorValue * (3.2 / 1023.0);

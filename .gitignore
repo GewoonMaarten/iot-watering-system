@@ -3,3 +3,7 @@
 
 #node modules
 /cloud functions/functions/node_modules/*
+
+#firebase files
+/cloud functions/.firebaserc
+/cloud functions/firebase-debug.log
