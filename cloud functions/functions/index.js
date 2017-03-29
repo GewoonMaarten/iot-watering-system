@@ -9,5 +9,5 @@ exports.addDataTime = functions.database.ref('/measurement/{pushId}/value').onWr
 
     console.log('Adding ',date,' to ',event.params.pushId, event.data.val());
 
-    return event.data.ref.parent.child('dateTime').set(dateFormated);
+    return event.data.ref.parent.child('dateTime').set(dateFormatted);
 });
