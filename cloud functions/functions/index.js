@@ -5,9 +5,9 @@ admin.initializeApp(functions.config().firebase);
 
 exports.addDataTime = functions.database.ref('/measurement/{pushId}/value').onWrite(event => {
     const date = new Date();
-    date = date.getDate()+":"+(date.getMonth+1)+":"+date.getFullYear+":"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+    let dateFormatted = date.getDate()+":"+date.getMonth()+":"+date.getFullYear()+":"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
 
     console.log('Adding ',date,' to ',event.params.pushId, event.data.val());
 
-    return event.data.ref.parent.child('dateTime').set(date);
+    return event.data.ref.parent.child('dateTime').set(dateFormated);
 });
