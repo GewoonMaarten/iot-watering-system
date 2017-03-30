@@ -1,4 +1,3 @@
-
 #include <Firebase.h>
 #include <FirebaseArduino.h>
 #include <FirebaseCloudMessaging.h>
@@ -71,9 +70,10 @@ float readSensor(){
 }
 
 boolean powerPump(float value){
-  if(value == 2.98){
+  if(value > 2.90){
     digitalWrite(relayPin, HIGH);
     Serial.println("Relay high");
+    delay(10000);
     return true;
   } else {
     digitalWrite(relayPin, LOW);
