@@ -80,12 +80,9 @@ boolean powerPump(float value){
     Serial.println("Relay low");
     return false;
   }
-//  digitalWrite(relayPin, HIGH);
-//  return true;
 }
 
 void loop(){
-//  uploadValue();
-//  delay(1000);
+
 }
 

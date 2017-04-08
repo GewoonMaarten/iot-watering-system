@@ -1,13 +1,13 @@
 const functions = require('firebase-functions');
+const dateTime = require('date-time');
 
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-exports.addDataTime = functions.database.ref('/measurement/{pushId}/value').onWrite(event => {
-    const date = new Date();
-    let dateFormatted = date.getDate()+":"+date.getMonth()+":"+date.getFullYear()+":"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+exports.addDateTime = functions.database.ref('/measurement/{pushId}/value').onWrite(event => {
+    const date = dateTime();
 
     console.log('Adding ',date,' to ',event.params.pushId, event.data.val());
 
-    return event.data.ref.parent.child('dateTime').set(dateFormatted);
+    return event.data.ref.parent.child('dateTime').set(date);
 });
