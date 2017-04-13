@@ -1,13 +1,32 @@
-const functions = require('firebase-functions');
-const dateTime = require('date-time');
-
 const admin = require('firebase-admin');
+const functions = require('firebase-functions');
+const moment = require('moment-timezone');
+
 admin.initializeApp(functions.config().firebase);
 
 exports.addDateTime = functions.database.ref('/measurement/{pushId}/value').onWrite(event => {
-    const date = dateTime();
+
+    const date = moment().tz("Europe/Amsterdam").format('YYYY-MM-DD HH:mm:ss');
 
     console.log('Adding ',date,' to ',event.params.pushId, event.data.val());
 
     return event.data.ref.parent.child('dateTime').set(date);
+});
+
+exports.cleanDatabase = functions.database.ref('/measurement').onWrite(event => {
+    const oneMonthPast = moment().subtract(1, "months");
+
+    const measurements = event.data.val();
+
+    const keys = Object.keys(measurements);
+
+    for(let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        date = measurements[key].dateTime.replace(" ", "T");
+        
+        if (oneMonthPast.isAfter(date)) {
+            console.warn("removing: \nkey: \n", key, "\n");
+            return event.data.ref.child(key).remove();
+        }
+    }
 });
