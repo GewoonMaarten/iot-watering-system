@@ -38,7 +38,7 @@ For this project I made a super scientific representation of the hardware: <br /
 ![hardware](https://github.com/GewoonMaarten/iot-watering-system/blob/master/layout%20schematic.jpg)
 
 The final product: <br />
-<img src="https://github.com/GewoonMaarten/iot-watering-system/blob/master/final%20board.jpg" width="500">
+<img src="https://github.com/GewoonMaarten/iot-watering-system/blob/master/final%20board.jpg" width="200"><img src="https://github.com/GewoonMaarten/iot-watering-system/blob/master/final%20assembly.jpg" width="450">
 
 
 
