@@ -32,7 +32,7 @@ exports.cleanDatabase = functions.database.ref('/measurement').onWrite(event => 
         let key = keys[i];
         date = measurements[key].dateTime.replace(" ", "T");
         
-        if (oneMonthPast.isBefore(date)) {
+        if (oneMonthPast.isAfter(date)) {
             console.warn("removing: \nkey: \n", key, "\n");
             return event.data.ref.child(key).remove();
         }
