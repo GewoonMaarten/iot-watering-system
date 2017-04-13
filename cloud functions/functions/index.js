@@ -5,26 +5,34 @@ const moment = require('moment-timezone');
 admin.initializeApp(functions.config().firebase);
 
 exports.addDateTime = functions.database.ref('/measurement/{pushId}/value').onWrite(event => {
+    // Don't execute when there is no data
+    data = event.data;
+    if(data == undefined || !data.val()){return;}
+    if (event.data.resourceState === 'not_exists') {return;}
 
+    // Get time in Amsterdam
     const date = moment().tz("Europe/Amsterdam").format('YYYY-MM-DD HH:mm:ss');
 
-    console.log('Adding ',date,' to ',event.params.pushId, event.data.val());
+    console.log('Adding ',date,' to ',event.params.pushId, data.val());
 
     return event.data.ref.parent.child('dateTime').set(date);
 });
 
 exports.cleanDatabase = functions.database.ref('/measurement').onWrite(event => {
+    // Don't execute when there is no data
+    data = event.data;
+    if(data == undefined || !data.val()){return;}
+    if (event.data.resourceState === 'not_exists') {return;}
+
     const oneMonthPast = moment().subtract(1, "months");
-
     const measurements = event.data.val();
-
     const keys = Object.keys(measurements);
 
     for(let i = 0; i < keys.length; i++) {
         let key = keys[i];
         date = measurements[key].dateTime.replace(" ", "T");
         
-        if (oneMonthPast.isAfter(date)) {
+        if (oneMonthPast.isBefore(date)) {
             console.warn("removing: \nkey: \n", key, "\n");
             return event.data.ref.child(key).remove();
         }
