@@ -22,7 +22,6 @@ exports.cleanDatabase = functions.database.ref('/measurement').onWrite(event => 
     // Don't execute when there is no data
     data = event.data;
     if(data == undefined || !data.val()){return;}
-    if (event.data.resourceState === 'not_exists') {return;}
 
     const oneMonthPast = moment().subtract(1, "months");
     const measurements = event.data.val();
