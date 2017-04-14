@@ -2,7 +2,7 @@
 Watering system with moisture sensor and firebase database.
 
 ## Firebase <img src="https://firebase.google.com/_static/images/firebase/touchicon-180.png" width="40">
-This project uses Firebase from Google to store the data collected from the moisture sensor. The Arduino code only uploads the value from the moisture sensor and whether the pump is on to the database. There is a Nodejs project include which, when uploaded as a cloud function to the Firebase database will add a datetime to the newly added values. 
+This project uses Firebase from Google to store the data collected from the moisture sensor. The Arduino code only uploads the value from the moisture sensor and whether the pump is on to the database. There is a Nodejs project include which, when uploaded as a cloud function to the Firebase database will add a datetime to the newly added values. Another function is added to clean the measurements that are older than one month. This data is not valuable to me so remove it.
 
 ### The JSON structure
 The cloud function will format a datetime based on the machine time. the format is a YYYY-MM-DD HH:mm:ss, e.g.: `2017-04-13 16:59:23`.
