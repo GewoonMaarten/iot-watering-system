@@ -7,11 +7,14 @@
 
 #include <ESP8266WiFi.h>
 
+#include <ArduinoOTA.h>
+
 // All passwords and urls
 #include "configuration.h"
 
 int relayPin = 5;
 int sensorVCCPin = 4;
+int whatToFlash = 0;
 
 void setup() {
   Serial.begin(115200);
@@ -32,9 +35,19 @@ void setup() {
   }
   Serial.println(WiFi.localIP());
 
+
+  ArduinoOTA.begin();
+  ArduinoOTA.setPort(3000);
+  ArduinoOTA.setHostname((char*) "water-system-0");
+  ArduinoOTA.setPassword((char*) ota_password);
+
   Firebase.begin(firebase_url, firebase_auth);
 
-  uploadValue();
+  ArduinoOTA.onStart([]() {
+    Firebase.setInt("devices/1/watering-system-0/readyToFlash", 0);
+  });
+
+  whatToFlash = Firebase.getInt("devices/1/watering-system-0/whatToFlash");
 }
 
 void uploadValue(){
@@ -47,7 +60,7 @@ void uploadValue(){
   root["isWatering"] = isWatering;
   
   root.prettyPrintTo(Serial);
-  Firebase.push("measurement", root);
+  Firebase.push("devices/1/watering-system-0/measurements", root);
   if(Firebase.failed()){
     Serial.print("setting /truth failed:");
     Serial.println(Firebase.error());
@@ -81,8 +94,13 @@ boolean powerPump(float value){
     return false;
   }
 }
-
 void loop(){
-
+  if(whatToFlash == 1){
+    Firebase.setInt("devices/1/watering-system-0/readyToFlash", 1);
+    ArduinoOTA.handle();
+  } else {
+    Firebase.setInt("devices/1/watering-system-0/readyToFlash", 0);
+    uploadValue();
+  }
 }
 

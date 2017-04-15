@@ -4,7 +4,10 @@ const moment = require('moment-timezone');
 
 admin.initializeApp(functions.config().firebase);
 
-exports.addDateTime = functions.database.ref('/measurement/{pushId}/value').onWrite(event => {
+
+const wateringSystem = 'watering-system-0';
+
+exports.addDateTime = functions.database.ref('/devices/1/watering-system-0/measurements/{pushId}/value').onWrite(event => {
     // Don't execute when there is no data
     data = event.data;
     if(data == undefined || !data.val()){return;}
@@ -18,7 +21,7 @@ exports.addDateTime = functions.database.ref('/measurement/{pushId}/value').onWr
     return event.data.ref.parent.child('dateTime').set(date);
 });
 
-exports.cleanDatabase = functions.database.ref('/measurement').onWrite(event => {
+exports.cleanDatabase = functions.database.ref('/devices/1/watering-system-0/measurements').onWrite(event => {
     // Don't execute when there is no data
     data = event.data;
     if(data == undefined || !data.val()){return;}
