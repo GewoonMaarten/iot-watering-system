@@ -34,11 +34,14 @@ I bought most of the things on Ali Express so thats where I will provide links f
 * Wire
 * 12v powersupply with 5.5 * 2.1mm DC jack
 
-For this project I made a super scientific representation of the hardware: <br />
-![hardware](https://github.com/GewoonMaarten/iot-watering-system/blob/master/layout%20schematic.jpg)
+#### Schematic:
+![Schematic](https://github.com/GewoonMaarten/iot-watering-system/blob/master/images/schematic.jpg)
+
+#### PCB:
+![pcb](https://github.com/GewoonMaarten/iot-watering-system/blob/master/images/pcb.jpg)
 
 The final product: <br />
-<img src="https://github.com/GewoonMaarten/iot-watering-system/blob/master/final%20board.jpg" width="200"><img src="https://github.com/GewoonMaarten/iot-watering-system/blob/master/final%20assembly.jpg" width="450">
+<img src="https://github.com/GewoonMaarten/iot-watering-system/blob/master/images/final%20board.jpg" width="200"><img src="https://github.com/GewoonMaarten/iot-watering-system/blob/master/images/final%20assembly.jpg" width="450">
 
 #### Related
 How to plot the sensor data:
